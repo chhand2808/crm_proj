@@ -1,0 +1,109 @@
+>>> customers = Customer.object.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'Customer' is not defined
+>>> from accounts.models import *  
+>>> customers = Customer.object.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: type object 'Customer' has no attribute 'object'
+>>> customers = Customer.objects.all() 
+>>> print(customers)
+<QuerySet [<Customer: Aayush>, <Customer: Aditya>]>
+>>> customerbyid = Customer.objects.get(id=1)
+>>> print(customerbyid) 
+Aayush
+>>> print(Customer.objects.get(id=2)) 
+Aditya
+>>> print(Customer.order_set.all())   
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'ReverseManyToOneDescriptor' object has no attribute 'all'
+>>> print(customerbyid.order_set.all()) 
+<QuerySet [<Order: Order object (1)>, <Order: Order object (3)>]>
+>>> print(customerbyid.email)           
+aayushmamapro@gmail.com
+>>> customer2 = Customer.objects.get(id=2) 
+>>> print(customer2.email) 
+adityasuryavanshi23072003@gmail.com
+>>> order = Orders.objects.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'Orders' is not defined
+>>> order = Order.objects.all()  
+>>> print(order) 
+<QuerySet [<Order: Order object (1)>, <Order: Order object (2)>, <Order: Order object (3)>]>
+>>> print(order.customer.name) 
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'QuerySet' object has no attribute 'customer'
+>>> order1 = Order.objects.first() 
+>>> print(order1.customer.name)    
+Aayush
+>>> print(order1.product.name)  
+Football
+>>> productf = Product.objects.filter(category="Out door") 
+>>> print(productf) 
+<QuerySet [<Product: Football>]>
+>>> print(Product.objects.all().order_by('id')) 
+<QuerySet [<Product: Football>, <Product: Mixer>, <Product: Dishes>, <Product: Oven>]>
+>>> print(Product.objects.all().order_by('-id')) 
+<QuerySet [<Product: Oven>, <Product: Dishes>, <Product: Mixer>, <Product: Football>]>
+>>> print(Product.objects.filter(tags__name = "Sports"))  
+<QuerySet [<Product: Football>]>
+>>> print(Product.objects.filter(tags__name = "Kitchen")) 
+<QuerySet [<Product: Mixer>, <Product: Dishes>, <Product: Oven>]>
+>>> ballOrders = customer2.order_set.filter(product__name="Football").count()
+>>> print(ballOrders) 
+0
+>>> ballOrders1 = customerbyid.order_set.filter(product__name="Football").count() 
+>>> print(ballOrders1) 
+1
+>>> allorders = {}  
+>>> for order
+  File "<console>", line 1
+    for order
+            ^
+SyntaxError: incomplete input
+>>>
+>>>
+>>> for order in customerbyid.order_set.all():
+... if order.product.name in allorders:
+  File "<console>", line 2
+    if order.product.name in allorders:
+    ^^
+IndentationError: expected an indented block after 'for' statement on line 1
+>>> for order in customerbyid.order_set.all():
+...     if order.product.name in allorders:    
+...             allorder[order.product.name] += 1
+...     else:   
+...             allorders[order.product.name] = 1
+...
+>>> print(allorders)
+{'Football': 1, 'Oven': 1}
+>>>
+
+
+
+# Let's assume that the visitor uses an iPhone...
+request.user_agent.is_mobile # returns True
+request.user_agent.is_tablet # returns False
+request.user_agent.is_touch_capable # returns True
+request.user_agent.is_pc # returns False
+request.user_agent.is_bot # returns False
+
+# Accessing user agent's browser attributes
+request.user_agent.browser  # returns Browser(family=u'Mobile Safari', version=(5, 1), version_string='5.1')
+request.user_agent.browser.family  # returns 'Mobile Safari'
+request.user_agent.browser.version  # returns (5, 1)
+request.user_agent.browser.version_string   # returns '5.1'
+
+# Operating System properties
+request.user_agent.os  # returns OperatingSystem(family=u'iOS', version=(5, 1), version_string='5.1')
+request.user_agent.os.family  # returns 'iOS'
+request.user_agent.os.version  # returns (5, 1)
+request.user_agent.os.version_string  # returns '5.1'
+
+# Device properties
+request.user_agent.device  # returns Device(family='iPhone')
+request.user_agent.device.family  # returns 'iPhone'

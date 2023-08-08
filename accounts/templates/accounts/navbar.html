@@ -1,0 +1,49 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a href="/"> <img src="{% static 'images/Chhand-logo.png'%}" alt="logo" id='logo-img'> </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          {% if request.user.is_staff %}
+
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'products' %}">Products</a>
+          </li>
+
+          {% endif %}
+
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+
+    <span id="hello-msg">Hello, {{request.user}}</span>
+    <span><a class='btn btn-outline-danger logout-btn' href="{% url 'logout' %}">Logout</a></span>
+
+  </nav>
+
+  <style>
+    #logo-img{
+        width: 100px;
+        height: 45px;
+    }
+    #hello-msg{
+      font-size: 18px;
+      color: #fff;
+      margin-left: 15px
+    }
+    .logout-btn{
+      margin-right: 10px;
+    }
+  </style>
